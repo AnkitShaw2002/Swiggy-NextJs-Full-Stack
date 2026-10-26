@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #ff5200;
+}
+
+.dark {
+  --background: #0b0d10;
+  --foreground: #e9edf3;
+  --primary: #ff7a3d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/*
+ * Dark palette. The site uses Tailwind's default grays directly, so while
+ * `.dark` is on <html> the scale is remapped: surfaces and borders darken,
+ * text lightens. Tinted backgrounds (red/orange/green/blue/amber -50 and
+ * -100) get a dark tint while their text colors stay readable.
+ */
+.dark {
+  --color-gray-50: #0e1116;
+  --color-gray-100: #171b21;
+  --color-gray-200: #20252d;
+  --color-gray-300: #2a3039;
+  --color-gray-400: #7d8794;
+  --color-gray-500: #97a1ad;
+  --color-gray-600: #b4bcc6;
+  --color-gray-700: #ccd2db;
+  --color-gray-800: #dee3ea;
+  --color-gray-900: #eceff4;
+  --color-gray-950: #f7f8fa;
+
+  --color-red-50: #2b1517;
+  --color-red-100: #3a1b1e;
+  --color-red-200: #4d2429;
+  --color-red-500: #ff6b6b;
+  --color-red-600: #ff8787;
+
+  --color-orange-50: #2a1a10;
+  --color-orange-100: #3a2415;
+
+  --color-green-50: #10241a;
+  --color-green-100: #15301f;
+  --color-green-600: #55d97f;
+
+  --color-blue-50: #101c2c;
+  --color-blue-600: #6ea8fe;
+
+  --color-amber-50: #2a2010;
+}
+
+/*
+ * Per-element corrections for shades that are used as both a light surface
+ * and a dark one. Kept at `:where(.dark)` specificity (0,1,0) inside the
+ * utilities layer so hover/focus variants still win over them.
+ */
+@layer utilities {
+  :where(.dark) .bg-white {
+    background-color: #12151a;
+  }
+
+  :where(.dark) .bg-gray-500 {
+    background-color: #56606c;
+  }
+
+  :where(.dark) .bg-gray-600 {
+    background-color: #454d58;
+  }
+
+  :where(.dark) .bg-gray-700 {
+    background-color: #39414b;
+  }
+
+  :where(.dark) .bg-gray-800 {
+    background-color: #262c35;
+  }
+
+  :where(.dark) .bg-gray-800\/80 {
+    background-color: rgb(38 44 53 / 0.8);
+  }
+
+  :where(.dark) .bg-gray-900 {
+    background-color: #1b2029;
+  }
+
+  :where(.dark) .bg-\[\#f0f2f5\] {
+    background-color: #10141a;
+  }
+
+  :where(.dark) .bg-\[\#f8f9fa\] {
+    background-color: #10141a;
+  }
+
+  :where(.dark) .border-gray-700 {
+    border-color: #39414b;
+  }
+
+  :where(.dark) .border-gray-800 {
+    border-color: #2a3039;
+  }
+
+  :where(.dark) .border-gray-900 {
+    border-color: #1b2029;
+  }
+
+  :where(.dark) .text-gray-100 {
+    color: #d0d6de;
+  }
+
+  :where(.dark) .text-gray-200 {
+    color: #c3cad3;
+  }
+
+  :where(.dark) .text-gray-300 {
+    color: #aeb7c2;
+  }
+
+  :where(.dark) .text-black {
+    color: #eceff4;
+  }
+
+  /* Accents that are also used as button backgrounds elsewhere */
+  :where(.dark) .text-sky-600 {
+    color: #5cb8ff;
+  }
+
+  :where(.dark) .text-emerald-600 {
+    color: #3ddba5;
+  }
+
+  :where(.dark) .text-green-500 {
+    color: #63e6a0;
+  }
+
+  /* Hover states that must stay dark in dark mode (higher specificity) */
+  .dark .hover\:bg-white:hover {
+    background-color: #1b2027;
+  }
+
+  .dark .hover\:bg-gray-600:hover {
+    background-color: #4d5561;
+  }
+
+  .dark .hover\:bg-gray-700:hover {
+    background-color: #414953;
+  }
+
+  .dark .hover\:bg-gray-900:hover {
+    background-color: #232933;
+  }
+
+  .dark .hover\:bg-gray-800\/60:hover {
+    background-color: rgb(38 44 53 / 0.6);
+  }
+
+  .dark .hover\:text-black:hover {
+    color: #eceff4;
+  }
+
+  .dark .hover\:text-gray-200:hover {
+    color: #c3cad3;
+  }
+}
+
+/*
+ * Shared pagination (component/common/Pagination.tsx, used by react-paginate).
+ * The active state lives in a rule so it always wins over the base link
+ * utilities, whatever the class order is.
+ */
+.app-pagination li.is-active > a {
+  background-color: #fc8019;
+  border-color: #fc8019;
+  color: #fff;
+  box-shadow: 0 4px 6px -1px rgb(252 128 25 / 0.35);
+}
+/*
+ * SweetAlert2 bottom-sheet (lib/cartPopup.ts). animate.css is not a
+ * dependency, so the animate.css utility classes used by the popup's
+ * showClass/hideClass are defined here.
+ */
+.swal2-cart-sheet {
+  padding: 0 !important;
+}
+
+.animate__animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animate__faster {
+  animation-duration: 0.5s;
+}
+
+@keyframes animate__slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate__slideInUp {
+  animation-name: animate__slideInUp;
+}
+
+@keyframes animate__slideOutDown {
+  to {
+    transform: translate3d(0, 100%, 0);
+    visibility: hidden;
+  }
+}
+
+.animate__slideOutDown {
+  animation-name: animate__slideOutDown;
+}
