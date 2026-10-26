@@ -220,6 +220,21 @@ export interface ResendOtpPayload {
 }
 
 export type RestaurantDetailsPayload = z.infer<typeof basicDetailsSchema>;
+
+/** Shape the backend restaurant-details endpoint expects (see restaurantValidate.js). */
+export interface RestaurantDetailsApiPayload {
+  ownerName: string;
+  restaurantName: string;
+  location: string;
+  email: string;
+  phone: string;
+  whatsappNumber: string;
+  workingDays: string[];
+  openingClosing: {
+    sameForAllDays: boolean;
+    slots: Array<{ open: string; close: string }>;
+  };
+}
 export type RestaurantDocumentsPayload = z.infer<typeof documentsSchema>;
 export type PartnerContractPayload = z.infer<typeof contractSchema>;
 

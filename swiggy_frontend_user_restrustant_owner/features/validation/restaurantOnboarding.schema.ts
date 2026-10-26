@@ -52,15 +52,12 @@ export const basicDetailsSchema = z.object({
     .string()
     .min(2, "Restaurant name must be at least 2 characters")
     .trim(),
-  location: z.union([
-    z.string().min(5, "Location address is required"),
-    z.object({
-      address: z.string().min(5, "Address must be at least 5 characters"),
-      city: z.string().min(2, "City is required"),
-      state: z.string().min(2, "State is required"),
-      pincode: z.string().min(6, "Valid 6-digit pincode is required"),
-    }),
-  ]),
+  location: z.object({
+    address: z.string().min(5, "Address must be at least 5 characters"),
+    city: z.string().min(2, "City is required"),
+    state: z.string().min(2, "State is required"),
+    pincode: z.string().min(6, "Valid 6-digit pincode is required"),
+  }),
   email: z.string().email("Invalid email address").toLowerCase().trim(),
   phone: z
     .string()

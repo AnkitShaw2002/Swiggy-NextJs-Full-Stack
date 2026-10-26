@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useRestaurantStore } from "@/features/store/restaurantOwner.store";
-import { Restaurant } from "@/features/typescript/restaurantOwner.type";
+import { Restaurant, RestaurantDetailsApiPayload } from "@/features/typescript/restaurantOwner.type";
 import {
   BasicDetailsFormValues,
   DocumentsFormValues,
@@ -181,9 +181,7 @@ const getDocumentsInitialData = (
   if (!restaurant) return undefined;
 
   return {
-    outletType:
-      (restaurant.outletType as "Dine-in" | "Cloud Kitchen" | "Bakery" | "takeaway" | "both") ||
-      "Dine-in",
+    outletType: restaurant.outletType || "Restaurant",
     pan: restaurant.pan || restaurant.panNumber || "",
     gstin: restaurant.gstin || "",
     ifscCode: restaurant.ifscCode || "",
@@ -251,16 +249,19 @@ export function useOnboardingPage() {
   // Handlers for steps
   const handleDetailsSubmit = async (data: BasicDetailsFormValues) => {
     try {
-      const payload = {
-        ...data,
-        location:
-          typeof data.location === "object"
-            ? `${data.location.address}, ${data.location.city}, ${data.location.state} - ${data.location.pincode}`
-            : data.location,
-        workingDays: data.workingDays?.map((d) => d.toLowerCase()),
+      const payload: RestaurantDetailsApiPayload = {
+        ownerName: data.ownerName,
+        restaurantName: data.restaurantName,
+        location: `${data.location.address}, ${data.location.city}, ${data.location.state} - ${data.location.pincode}`,
+        email: data.email,
+        phone: data.phone,
+        whatsappNumber: data.whatsappNumber,
+        workingDays: data.workingDays.map((d) => d.toLowerCase()),
         openingClosing: {
           sameForAllDays: true,
-          slots: [{ open: data.openingClosing.open, close: data.openingClosing.close }],
+          slots: [
+            { open: data.openingClosing.open, close: data.openingClosing.close },
+          ],
         },
       };
       await saveRestaurantDetails(payload);

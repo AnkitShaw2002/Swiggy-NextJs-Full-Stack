@@ -67,8 +67,8 @@ export default function BasicDetailsStep({
         "Saturday",
       ],
       openingClosing: {
-        openingTime: initialData?.openingClosing?.openingTime || "09:00",
-        closingTime: initialData?.openingClosing?.closingTime || "22:00",
+        open: initialData?.openingClosing?.open || "09:00",
+        close: initialData?.openingClosing?.close || "22:00",
       },
     },
   });
@@ -97,8 +97,8 @@ export default function BasicDetailsStep({
           pincode: initialData.location?.pincode || "",
         },
         openingClosing: {
-          openingTime: initialData.openingClosing?.openingTime || "09:00",
-          closingTime: initialData.openingClosing?.closingTime || "22:00",
+          open: initialData.openingClosing?.open || "09:00",
+          close: initialData.openingClosing?.close || "22:00",
         },
       });
     }
@@ -367,15 +367,15 @@ export default function BasicDetailsStep({
               <Clock className="h-4 w-4" />
             </div>
             <input
-              {...register("openingClosing.openingTime")}
+              {...register("openingClosing.open")}
               type="time"
-              aria-invalid={Boolean(errors.openingClosing?.openingTime)}
+              aria-invalid={Boolean(errors.openingClosing?.open)}
               className="block w-full pl-10 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#fc8019] text-sm transition-colors"
             />
           </div>
-          {errors.openingClosing?.openingTime && (
+          {errors.openingClosing?.open && (
             <p className="mt-1 text-xs text-red-500">
-              {errors.openingClosing.openingTime.message}
+              {errors.openingClosing.open.message}
             </p>
           )}
         </div>
@@ -389,15 +389,15 @@ export default function BasicDetailsStep({
               <Clock className="h-4 w-4" />
             </div>
             <input
-              {...register("openingClosing.closingTime")}
+              {...register("openingClosing.close")}
               type="time"
-              aria-invalid={Boolean(errors.openingClosing?.closingTime)}
+              aria-invalid={Boolean(errors.openingClosing?.close)}
               className="block w-full pl-10 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#fc8019] text-sm transition-colors"
             />
           </div>
-          {errors.openingClosing?.closingTime && (
+          {errors.openingClosing?.close && (
             <p className="mt-1 text-xs text-red-500">
-              {errors.openingClosing.closingTime.message}
+              {errors.openingClosing.close.message}
             </p>
           )}
         </div>

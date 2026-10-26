@@ -10,7 +10,7 @@ import {
   ApplyRestaurantPayload,
   VerifyOtpPayload,
   ResendOtpPayload,
-  RestaurantDetailsPayload,
+  RestaurantDetailsApiPayload,
   RestaurantDocumentsPayload,
   PartnerContractPayload,
   FoodListQueryParams,
@@ -42,7 +42,7 @@ interface RestaurantState {
   applyRestaurant: (payload: ApplyRestaurantPayload) => Promise<any>;
   verifyOtp: (payload: VerifyOtpPayload) => Promise<any>;
   resendOtp: (payload: ResendOtpPayload) => Promise<any>;
-  saveRestaurantDetails: (payload: RestaurantDetailsPayload) => Promise<any>;
+  saveRestaurantDetails: (payload: RestaurantDetailsApiPayload) => Promise<any>;
   saveRestaurantDocuments: (payload: RestaurantDocumentsPayload) => Promise<any>;
   acceptPartnerContract: (payload: PartnerContractPayload) => Promise<any>;
 
