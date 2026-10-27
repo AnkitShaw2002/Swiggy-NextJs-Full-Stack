@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { toast } from "sonner";
 
-const API_BASE = (process.env.API_BASE_URL || "http://localhost:4000").replace(/\/+$/, "");
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000").replace(/\/+$/, "");
 
 // Keep these in sync with features/store/auth.store.ts
 const ACCESS_COOKIE_MAX_AGE = 60 * 15;

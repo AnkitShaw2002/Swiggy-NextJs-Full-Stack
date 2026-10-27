@@ -1,6 +1,6 @@
 import { cookies, headers } from "next/headers";
 
-export const API_BASE = (process.env.API_BASE_URL || "http://localhost:4000").replace(/\/+$/, "");
+export const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000").replace(/\/+$/, "");
 
 export type JsonRecord = Record<string, unknown>;
 
